@@ -6,7 +6,7 @@ constructor(){
 super();  
 this.state = {  
  siswa : [  
-{nis: "100", nama: "Mustofa", alamat: "Surabaya"},  
+{nis: "1000", nama: "Mustofa", alamat: "Padang"},  
  {nis: "101", nama: "Nurul", alamat: "Malang"},  
  {nis: "102", nama: "Misbah", alamat: "Pasuruan"},  
 ],  
@@ -15,8 +15,46 @@ this.state = {
  alamat: "",
  action: "" 
  } 
-	}  
-     
+    }  
+    bind = (event) => {  
+        this.setState({[event.target.name]: event.target.value});  
+        /* fungsi ini digunakan untuk memasukkan data dari elemen input 
+        ke variable state. 
+        contoh ketika input nis diisi, maka secara otomatis variabel nis 
+        pada state bernilai sesuai dengan inputan 
+        */  
+        }  
+        Add = () => {  
+            // mengosongkan nilai nis, nama, dan alamat  
+             // pada saat tombol add ditekan  
+            this.setState({  
+            nis: "",  
+             nama: "",  
+             alamat: "",  
+              action: "insert"  
+            });
+        }
+        Edit = (item) => {  
+            this.setState({  
+            nis: item.nis,  
+           nama: item.nama,  
+           alamat: item.alamat,  
+           action: "update"  
+           });  
+           }  
+            
+               Drop = (index) => {  
+           // temp digunakan untuk menyimpan sementara  
+            // data array siswa  
+           let temp = this.state.siswa;  
+           
+            // menghapus data pada index yang dihapus  
+            temp.splice(index,1);  
+            
+           // array siswa diupdate dengan nilai data temp  
+           this.setState({siswa: temp});  
+               } 
+       
 render(){  
 return (  
 <div className="container"> 
@@ -77,14 +115,6 @@ Simpan
  </div>  
  );  
  }  
- bind = (event) => {  
-    this.setState({[event.target.name]: event.target.value});  
-    /* fungsi ini digunakan untuk memasukkan data dari elemen input 
-    ke variable state. 
-    contoh ketika input nis diisi, maka secara otomatis variabel nis 
-    pada state bernilai sesuai dengan inputan 
-    */  
-    }  
           
     SaveSiswa = (event) =>{  
     event.preventDefault();  
@@ -115,37 +145,7 @@ Simpan
     // menutup modal  
      $("#modal").modal('hide');  
     }  
-      
-    Add = () => {  
-    // mengosongkan nilai nis, nama, dan alamat  
-     // pada saat tombol add ditekan  
-    this.setState({  
-    nis: "",  
-     nama: "",  
-     alamat: "",  
-      action: "insert"  
-    });  
-    }  
+        
      
-    Edit = (item) => {  
-     this.setState({  
-     nis: item.nis,  
-    nama: item.nama,  
-    alamat: item.alamat,  
-    action: "update"  
-    });  
-    }  
-     
-        Drop = (index) => {  
-    // temp digunakan untuk menyimpan sementara  
-     // data array siswa  
-    let temp = this.state.siswa;  
-    
-     // menghapus data pada index yang dihapus  
-     temp.splice(index,1);  
-     
-    // array siswa diupdate dengan nilai data temp  
-    this.setState({siswa: temp});  
-        } 
 }
 export default List;
